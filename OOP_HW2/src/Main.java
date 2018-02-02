@@ -16,6 +16,7 @@ public class Main {
             img = ImageProcessor.rotate(img, 31);
             ImageToAscii.convertToAscii(img, "result.txt");
         } catch (IOException e) {
+            System.out.println(e.toString());
         }
     }
 }
