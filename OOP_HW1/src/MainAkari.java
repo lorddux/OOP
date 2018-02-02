@@ -1,6 +1,4 @@
 import java.io.*;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +29,7 @@ public class MainAkari {
         String format = "P(\\d*)\n(\\d*) (\\d*)\n(\\d*)\n";
         Pattern pattern = Pattern.compile(format);
         char [] d = new char[format.length()];
-                format.getChars(0, format.length(), d, 0);
+        format.getChars(0, format.length(), d, 0);
         byte[] b = new byte[1024];
         char[] y = new char[300];
         int u;
