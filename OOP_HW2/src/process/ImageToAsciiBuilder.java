@@ -1,25 +1,25 @@
-package processor;
+package process;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.*;
 
-public class ImageToAscii {
+public class ImageToAsciiBuilder {
 
     private static final String ASCII_PALETTE = "MWNXK0Okxdolc:;,'...   ";
     private static int PALETTE_SIZE = ASCII_PALETTE.length();
 
-    public static void convertToAscii(BufferedImage img, String destinationFileName) throws IOException {
-        OutputStream outputStream = new FileOutputStream(destinationFileName);
-
+    public static String convertToAscii(BufferedImage img) throws IOException {
+        StringBuilder asciiImageBuilder = new StringBuilder();
         for (int i = 0; i < img.getHeight(); i++) {
             for (int j = 0; j < img.getWidth(); j++) {
                 Color pixColor = new Color(img.getRGB(j, i));
                 double pixValue = colorToValue(pixColor);
-                outputStream.write(getPaletteChar(pixValue));
+                asciiImageBuilder.append(getPaletteChar(pixValue));
             }
-            outputStream.write('\n');
+            asciiImageBuilder.append('\n');
         }
+        return asciiImageBuilder.toString().trim();
     }
 
     private static char getPaletteChar(double g) {

@@ -1,10 +1,15 @@
-package processor;
+package process;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.*;
+import java.util.List;
 
 public class ImageProcessor {
+    public interface Operation {
+        BufferedImage execute(BufferedImage image);
+    }
 
     public static BufferedImage resize(BufferedImage image, int targetWidth, int targetHeight) {
 
@@ -46,4 +51,27 @@ public class ImageProcessor {
 
         return resultImage;
     }
+
+    public static List<BufferedImage> parallelProcess(List<BufferedImage> images, List<Operation> operations) throws Exception {
+        Stack<Thread> workers = new Stack<>();
+        List<BufferedImage> resultImages = new ArrayList<>(images);
+        for (int i = 0; i < images.size(); ++i) {
+            int index = i;
+            workers.add(
+                    new Thread(() -> {
+                        BufferedImage img = images.get(index);
+                        for (Operation operation : operations) {
+                            img = operation.execute(img);
+                        }
+                        resultImages.set(index, img);
+                    })
+            );
+            workers.peek().start();
+        }
+        for (Thread thread : workers) {
+            thread.join();
+        }
+        return resultImages;
+    }
+
 }
