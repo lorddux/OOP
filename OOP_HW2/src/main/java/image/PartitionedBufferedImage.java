@@ -70,7 +70,6 @@ public class PartitionedBufferedImage {
 
 //        TODO: recognize black color; refactor
         for (int x = 0; x < width; ++x) {
-            int i = image.getRGB(x, 0);
             if (image.getRGB(x, 0) < -10000) {
                 boolean flag = true;
                 for (int y = 1; y < height; ++y) {
