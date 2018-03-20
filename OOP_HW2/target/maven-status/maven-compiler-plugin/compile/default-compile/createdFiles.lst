@@ -1,0 +1,5 @@
+image/PartitionedBufferedImage.class
+Main.class
+process/ImageToAsciiBuilder.class
+process/ImageProcessor.class
+process/ImageProcessor$Operation.class
